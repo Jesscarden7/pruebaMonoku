@@ -1,0 +1,58 @@
+.moodContainer {
+  background-color: var(--cerulean);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 20px;
+  padding: 10px;
+}
+
+.boxContainer {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.modalContainer {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 10px;
+  padding: 20px;
+  height: 60%;
+  width: 30%;
+  outline: none;
+  text-align: center;
+  padding: 5px;
+}
+
+#exitButton {
+  background-color: var(--white);
+  border-radius: 10px;
+  margin-top: 20px;
+  color: var(--black);
+  font-weight: bold;
+  height: 50px;
+}
+
+@media (max-width: 576px) {
+  .moodContainer {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .boxContainer {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .modalContainer {
+    width: 90%;
+  }
+
+  #exitButton {
+    font-size: 0;
+    width: 10px;
+  }
+}

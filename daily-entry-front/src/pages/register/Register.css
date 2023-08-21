@@ -1,0 +1,13 @@
+#registerButton {
+  background-color: var(--lavenderPink);
+  border-radius: 20px;
+  margin-top: 20px;
+  color: var(--black);
+  font-weight: bold;
+}
+
+#registerContainer {
+  background-color: var(--cerulean);
+  border-radius: 20px;
+  padding: 50px;
+}

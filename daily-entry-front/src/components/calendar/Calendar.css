@@ -1,0 +1,11 @@
+.calendarContainer {
+  width: 50%;
+  padding: 20px;
+}
+
+@media (max-width: 576px) {
+  .calendarContainer {
+    width: 100%;
+    padding: 5px;
+  }
+}

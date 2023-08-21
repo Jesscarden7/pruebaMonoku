@@ -1,0 +1,9 @@
+#signinButton {
+  background-color: var(--purpureus);
+  border-radius: 20px;
+  margin-top: 20px;
+}
+
+#loginContainer {
+  background-color: var(--lemonChiffon);
+}

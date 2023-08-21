@@ -1,0 +1,28 @@
+#entryButton {
+  background-color: var(--lavenderPink);
+  border-radius: 10px;
+  margin-top: 20px;
+  color: var(--black);
+  font-weight: bold;
+  height: 50px;
+}
+
+.dashboarContainer {
+  display: flex;
+  width: 100%;
+  background-color: var(--cerulean);
+  flex-wrap: wrap;
+  padding: 10px;
+}
+
+@media (max-width: 576px) {
+  .dashboarContainer {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  #entryButton {
+    height: 40px;
+    font-size: 13px;
+  }
+}

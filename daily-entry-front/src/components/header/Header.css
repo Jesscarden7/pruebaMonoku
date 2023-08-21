@@ -1,0 +1,84 @@
+#main-header {
+  background-color: var(--white);
+}
+
+.logoIcon {
+  color: var(--lavenderPink);
+}
+
+.appTitle {
+  color: var(--black);
+  font-weight: bold;
+}
+
+.appTitleSufix {
+  color: var(--lavenderPink);
+  font-weight: bold;
+}
+
+.logo img {
+  height: 40px; /* Adjust the logo height as needed */
+}
+
+.navoptions {
+  display: flex;
+  justify-content: space-between;
+  width: 250px;
+}
+
+#homeSignin,
+#welcomeSignin {
+  color: var(--cerulean);
+  font-weight: bold;
+  border: 2px solid var(--cerulean);
+  padding: 8px 20px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  background-color: var(--white);
+}
+
+#homeSignUp,
+#logOutSignUp {
+  color: var(--black);
+  font-weight: bold;
+  padding: 8px 20px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  background-color: var(--lemonChiffon);
+  border: none;
+}
+
+.signin:hover {
+  background-color: var(--columbiaBlue);
+}
+
+.buttonsContainer {
+  margin-left: auto;
+  display: flex;
+  justify-content: space-between;
+  width: 300px;
+}
+
+.buttonsContainerSignin {
+  margin-left: auto;
+  display: flex;
+  justify-content: space-between;
+}
+
+@media (max-width: 576px) {
+  .appTitle,
+  .appTitleSufix {
+    display: none;
+  }
+
+  #homeSignin,
+  #homeSignUp {
+    padding: 3px 10px;
+  }
+
+  #welcomeSignin,
+  #logOutSignUp {
+    font-size: small;
+    padding: 0;
+  }
+}
