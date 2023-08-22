@@ -4,12 +4,14 @@ import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import AutoStoriesIcon from "@mui/icons-material/AutoStories";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { UserContext } from "../../contexts/UserContext";
 
 import "./Header.css";
 
 const Header = () => {
+  const navigate = useNavigate();
+
   const { userInfo, setUserInfo } = useContext(UserContext);
 
   const logOut = () => {
@@ -18,6 +20,9 @@ const Header = () => {
       userInfo: null,
       isLoggedin: false,
     });
+
+    navigate("/");
+    return;
   };
 
   return (

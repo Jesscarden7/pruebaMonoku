@@ -30,7 +30,6 @@ const Login = () => {
           password,
         }),
       });
-      console.log(data);
 
       if (data.isSuccesful) {
         setUserInfo({
