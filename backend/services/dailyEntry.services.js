@@ -3,15 +3,15 @@ const moment = require("moment");
 
 const DailyEntry = require("../models/dailyEntry");
 
+const configuration = new Configuration({
+  apiKey: process.env.OPENAI_API_KEY,
+});
+
+const openai = new OpenAIApi(configuration);
+
 const moodService = {
   checkMood: async (mood, entry, userId) => {
     try {
-      const configuration = new Configuration({
-        apiKey: process.env.OPENAI_API_KEY,
-      });
-
-      const openai = new OpenAIApi(configuration);
-
       const feelingsMapping = {
         Feliz: "😄",
         Triste: "😢",
@@ -35,8 +35,6 @@ const moodService = {
           presence_penalty: 0,
         });
         sentiment = gptResponse.data.choices[0]["text"];
-
-        console.log(gptResponse);
       } catch (error) {
         console.log(error);
         return {
@@ -71,8 +69,8 @@ const moodService = {
           mood === parseSentiment.sentimiento
             ? feelingsMapping[mood]
             : feelingsMapping[parseSentiment.sentimiento],
-        analisis: parseSentiment.analisis,
-        sentimiento: parseSentiment.sentimiento,
+        analysis: parseSentiment.analisis,
+        mood: parseSentiment.sentimiento,
         isSuccesful: true,
       };
 
@@ -94,9 +92,47 @@ const moodService = {
 
       const list = await DailyEntry.find({ userId }, include);
 
+      let summary = "";
+
+      if (list.length > 0) {
+        const trends = list.map((trend) => {
+          return {
+            mood: trend.mood,
+            date: trend.date,
+          };
+        });
+
+        const trendPrompt = `Genera un análisis completo sobre la tendencia de estado de ánimo por fecha, teniendo como base el siguiente arreglo: ${JSON.stringify(
+          trends,
+        )}, siendo lo más concreto posible, evitando mencionar las fechas contenidas en el arreglo y el arreglo como tal`;
+
+        try {
+          const gptResponse = await openai.createCompletion({
+            model: "text-davinci-003",
+            prompt: trendPrompt,
+            temperature: 0,
+            max_tokens: 500,
+            top_p: 1,
+            frequency_penalty: 0,
+            presence_penalty: 0,
+          });
+
+          summary = gptResponse.data.choices[0]["text"];
+        } catch (error) {
+          console.log(error);
+          return {
+            msg: "error llamando a chat gtp",
+            isSuccesful: false,
+          };
+        }
+
+        summary = summary.replace(".", "");
+      }
+
       const response = {
         type: "success",
         list,
+        trendSummary: summary,
         isSuccesful: true,
       };
 

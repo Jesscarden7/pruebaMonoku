@@ -27,6 +27,18 @@
   padding: 5px;
 }
 
+.modalCloseContainer {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 10px;
+  padding: 20px;
+  outline: none;
+  text-align: center;
+  padding: 5px;
+}
+
 #exitButton {
   background-color: var(--white);
   border-radius: 10px;
@@ -54,5 +66,9 @@
   #exitButton {
     font-size: 0;
     width: 10px;
+  }
+
+  .modalCloseContainer {
+    width: 70%;
   }
 }

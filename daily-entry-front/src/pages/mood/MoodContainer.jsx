@@ -20,6 +20,8 @@ const MoodContainer = () => {
   const [selectedCard, setSelectedCard] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [message, setMessage] = useState("");
+  const [analysis, setAnalysis] = useState(null);
+  const [isAnalysisModalOpen, setIsAnalysisModalOpen] = useState(false);
   const { userInfo } = useContext(UserContext);
   const api = useApi();
 
@@ -32,7 +34,6 @@ const MoodContainer = () => {
   ];
 
   const handleCardClick = (card) => {
-    console.log(card);
     setSelectedCard(card);
     setIsModalOpen(true);
   };
@@ -41,6 +42,10 @@ const MoodContainer = () => {
     setSelectedCard(null);
     setIsModalOpen(false);
     setMessage("");
+  };
+
+  const closeAnalysisModal = () => {
+    setIsAnalysisModalOpen(false);
   };
 
   const handleSendMessage = async () => {
@@ -59,13 +64,22 @@ const MoodContainer = () => {
       });
 
       if (data.isSuccesful) {
-        navigate("/dashboard");
-        return;
+        setAnalysis({
+          emoji: data.emoji,
+          analysis: data.analysis,
+        });
+        setIsModalOpen(false);
+        setIsAnalysisModalOpen(true);
       }
     } catch (error) {
       // Handle error
       console.error("Error during entry:", error);
     }
+  };
+
+  const handleAnalysisClose = () => {
+    navigate("/dashboard");
+    return;
   };
 
   if (!userInfo.isLoggedin) {
@@ -130,7 +144,7 @@ const MoodContainer = () => {
                   {selectedCard.emoji} {selectedCard.text}
                 </Typography>
                 <Typography style={{ textAlign: "left" }}>
-                  Hoy es: {new Date().toLocaleDateString()}
+                  Hoy es {new Date().toLocaleDateString()}
                 </Typography>
                 <TextareaAutosize
                   placeholder='Ingresa el entrada del diario para hoy'
@@ -157,6 +171,33 @@ const MoodContainer = () => {
             )}
           </Box>
         </Modal>
+        {analysis && (
+          <Modal
+            open={isAnalysisModalOpen}
+            onClose={closeAnalysisModal}
+            aria-labelledby='modal-title'>
+            <Box
+              sx={{
+                backgroundColor: "#fff",
+              }}
+              className='modalCloseContainer'>
+              <>
+                <Typography variant='h4' id='modal-title'>
+                  Hoy estás {analysis.emoji}
+                </Typography>
+                <Typography style={{ textAlign: "center", padding: "5px" }}>
+                  {analysis.analysis}
+                </Typography>
+                <Button
+                  variant='contained'
+                  style={{ backgroundColor: "#0c7489", margin: "10px" }}
+                  onClick={handleAnalysisClose}>
+                  Finalizar
+                </Button>
+              </>
+            </Box>
+          </Modal>
+        )}
       </Container>
     </div>
   );
